@@ -1,0 +1,17 @@
+html, body, #app {
+    width: 100vw;
+    height: 100vh;
+    min-width: 1200px;
+}
+
+// transition
+.content-enter-from, .content-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+.content-leave-to {
+    transform: translateX(-30px);
+}
+.content-leave-active, .content-enter-active {
+    transition: all 0.4s ease;
+}
