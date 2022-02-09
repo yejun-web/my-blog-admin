@@ -37,7 +37,7 @@ export default {
         Operation,
         PriceTag,
     },
-    setup(props, context) {
+    setup(props, ctx) {
         const data = reactive({
             active: '',
             menuList: [
