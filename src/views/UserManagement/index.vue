@@ -47,7 +47,7 @@
         <el-dialog
             v-model="userFormVisible"
             width="600px"
-            :title="userForm.id ? '编辑' : '新增' + '用户'"
+            :title="userForm.id ? '编辑用户' : '新增用户'"
             @closed="handleClosed"
         >
             <el-form
@@ -109,7 +109,7 @@
 import { ref, reactive, onMounted, nextTick, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { roleList } from '@/api/role'
-import { userRegister, userList, setUserInfo, userDelete } from '@/api/user'
+import { userRegister, userList, setUserInfo, deleteUser } from '@/api/user'
 
 let userData = ref([])
 let roleData = ref([])
@@ -190,7 +190,7 @@ const handleDelete = async (id) => {
         cancelButtonText: '取消',
         type: 'warning',
     })
-    const res = await userDelete(id)
+    const res = await deleteUser(id)
     getUserList()
     ElMessage({
         message: res.msg,

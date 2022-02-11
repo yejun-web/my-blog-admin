@@ -36,7 +36,7 @@ export function setUserInfo(data) {
 }
 
 // 删除用户
-export function userDelete(id) {
+export function deleteUser(id) {
     return service({
         url: 'user/delete/' + id,
         method: 'post',
