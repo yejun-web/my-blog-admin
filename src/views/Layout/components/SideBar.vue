@@ -5,7 +5,6 @@
                 v-for="item in data.menuList"
                 :key="item.path"
                 :index="item.path"
-                @click="handleLinkTo"
             >
                 <el-icon>
                     <component :is="item.icon"></component>
@@ -25,7 +24,7 @@ import {
     Postcard,
     Document,
     Operation,
-    PriceTag,
+    PriceTag
 } from '@element-plus/icons-vue'
 
 export default {
@@ -35,7 +34,7 @@ export default {
         Postcard,
         Document,
         Operation,
-        PriceTag,
+        PriceTag
     },
     setup(props, ctx) {
         const data = reactive({
@@ -44,54 +43,54 @@ export default {
                 {
                     name: '首页',
                     icon: 'House',
-                    path: '/index',
+                    path: '/index'
                 },
                 {
                     name: '用户管理',
                     icon: 'User',
-                    path: '/user-management',
+                    path: '/user-management'
                 },
                 {
                     name: '角色列表',
                     icon: 'Postcard',
-                    path: '/role-management',
+                    path: '/role-management'
                 },
                 {
                     name: '文章管理',
                     icon: 'Document',
-                    path: '/article-management',
+                    path: '/article-management'
                 },
                 {
                     name: '分类管理',
                     icon: 'Operation',
-                    path: '/category-management',
+                    path: '/category-management'
                 },
                 {
                     name: '标签管理',
                     icon: 'PriceTag',
-                    path: '/tag-management',
-                },
-            ],
+                    path: '/tag-management'
+                }
+            ]
         })
 
         // 路由监听
         const route = useRoute()
         watch(
             () => route.path,
-            (value) => {
+            value => {
                 data.active = value
                 console.log(data.active)
             },
             {
                 deep: true,
-                immediate: true,
+                immediate: true
             }
         )
 
         return {
-            data,
+            data
         }
-    },
+    }
 }
 </script>
 

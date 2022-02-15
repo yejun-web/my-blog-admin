@@ -8,9 +8,11 @@
                 <SideBar />
             </div>
             <div class="layout-content__right">
-                <transition name="content" mode="out-in">
-                    <router-view></router-view>
-                </transition>
+                <router-view v-slot="{ Component }">
+                    <transition name="content" mode="out-in">
+                        <component :is="Component" />
+                    </transition>
+                </router-view>
             </div>
         </div>
     </div>
@@ -28,15 +30,11 @@ const userInfo = computed(() => store.state.user.userInfo)
 const getUserInfo = () => store.dispatch('getUserInfo')
 const logout = () => store.commit('logout')
 const handleLogout = () => {
-    ElMessageBox.confirm(
-        '你确定要退出登录吗？',
-        '提示',
-        {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning',
-        }
-    ).then(() => {
+    ElMessageBox.confirm('你确定要退出登录吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+    }).then(() => {
         logout()
     })
 }
