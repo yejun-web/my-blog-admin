@@ -28,6 +28,7 @@ module.exports = {
         'space-before-function-paren': ['error', 'never'],
         // 'vue/attributes-order': 'off',
         'vue/one-component-per-file': 'off',
+        'vue/multi-word-component-names': 'off',
         'vue/multiline-html-element-content-newline': 'off',
         'vue/singleline-html-element-content-newline': 'off',
         'vue/require-explicit-emits': [
