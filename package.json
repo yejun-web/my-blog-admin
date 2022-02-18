@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@textbus/textbus": "^1.1.7",
     "axios": "^0.25.0",
     "element-plus": "^1.3.0-beta.7",
     "secure-ls": "^1.2.6",
