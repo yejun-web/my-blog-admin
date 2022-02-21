@@ -79,7 +79,6 @@ export default {
             () => route.path,
             value => {
                 data.active = value
-                console.log(data.active)
             },
             {
                 deep: true,

@@ -24,25 +24,25 @@
 import { ArrowDown } from '@element-plus/icons-vue'
 
 export default {
+    components: {
+        ArrowDown
+    },
     props: {
         userInfo: {
             type: Object,
             default() {
                 return {
                     username: '',
-                    roleName: '',
+                    roleName: ''
                 }
-            },
+            }
         },
         logout: {
             type: Function,
-            default: () => {},
-        },
+            default: () => {}
+        }
     },
-    components: {
-        ArrowDown,
-    },
-    setup() {},
+    setup() {}
 }
 </script>
 

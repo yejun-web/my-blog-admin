@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps, defineEmits } from 'vue'
+import { ref, onMounted, defineProps, defineEmits, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { createEditor } from '@textbus/textbus'
 import '@textbus/textbus/bundles/textbus.min.css'
@@ -25,9 +25,11 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const baseUrl = import.meta.env.VITE_BASE_URL
-const editorContainer = ref(null)
-const editorFileInput = ref(null)
-const editorInstance = ref(null)
+let isOnReady = ref(false)
+let isChanged = ref(false)
+let editorInstance = ref(null)
+let editorContainer = ref(null)
+let editorFileInput = ref(null)
 
 /**
  * https://textbus.tanboui.com/doc/upload
@@ -46,20 +48,40 @@ const uploader = (type, prevValue) => {
         })
     })
 }
-const createEditorInstance = () => {
+const createEditorInstance = html => {
+    if (editorInstance.value) {
+        editorInstance.value.destroy()
+    }
     editorInstance.value = createEditor(editorContainer.value, {
         uploader
     })
-    // initialize
-    if (props.modelValue) {
-        editorInstance.value.setContents(props.modelValue)
-    }
     // listener
+    editorInstance.value.onReady.subscribe(() => {
+        editorInstance.value.setContents(html || props.modelValue)
+        isOnReady.value = true
+    })
     editorInstance.value.onChange.subscribe(() => {
-        const content = editorInstance.value.getContents().content
-        emit('update:modelValue', content)
+        // 首次创建完成后开始监听
+        if (isOnReady.value && isChanged.value) {
+            const content = editorInstance.value.getContents().content
+            emit('update:modelValue', content)
+        }
     })
 }
+
+watch(
+    () => props.modelValue,
+    value => {
+        if (!isChanged.value) {
+            isChanged.value = true
+            editorInstance.value.setContents(value)
+        }
+        if (!value) {
+            isChanged.value = false
+            editorInstance.value.setContents('')
+        }
+    }
+)
 
 onMounted(() => {
     createEditorInstance()
